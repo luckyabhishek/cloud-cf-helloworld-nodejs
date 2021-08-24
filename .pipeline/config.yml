@@ -1,5 +1,7 @@
 general:
+  buildTool: mta
 steps:
   mtaBuild:
     buildTarget: 'CF'
-    dockerWorkspace: '/home/mta'
+    defaultNpmRegistry: http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.releases.npm/
+
