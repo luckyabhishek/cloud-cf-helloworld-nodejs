@@ -5,12 +5,11 @@
   "private": true,
   "dependencies": {
     "express": "4.15.3",
-    "body-parser": "1.17.2",
-    "pg-promise": "5.7.1",
-    "@sap/xsenv": "^1.2.6",
-    "@sap/xssec": "^2.1.0",
-    "passport": "0.3.2"
+    "body-parser": "1.17.2"
   },
+  "engines": {
+    "node": "6.x.x"
+  },  
   "scripts": {
     "start": "node server.js"
   }

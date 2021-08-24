@@ -1,33 +1,59 @@
-# Chapter 4: Security Insight 
+# Chapter 1: Basic Implementation of a Node.js Web Service
 
 ## Learning Goal
-After finishing this chapter, you should have a basic understanding on how security and authentication work in the SAP Cloud Platform Cloud Foundry Environment and of some libraries that support you in developing secure applications.
+Having finished this chapter, you should be able to run a small Node.js Web service on your local machine and you'll be able to deploy it to SAP Cloud Platform Cloud Foundry Environment.
 
-## Prerequisite
-You performed the previous chapter.
+## Prerequisites
+- You [signed up](https://account.hanatrial.ondemand.com/register) for a [trial account](https://account.hanatrial.ondemand.com/) in SAP Cloud Platform, or you have a productive account.
+- Once you got your account, you performed the steps described in [Getting Started with Cloud Foundry](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/b8ee7894fe0b4df5b78f61dd1ac178ee.html).
+- You have basic knowledge about [Node.js: Development](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/3a7a0bece0d044eca59495965d8a0237.html), for example, [Create a Node.js Application](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/772b45ce6c46492b908d4c985add932a.html) and [SAP NPM Registry](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/fe672690385a4541b45622a9088f4503.html). Please make sure that you bookmark these pages: Later [SAP Node.js Packages](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/92f1bce8f72946c180d198e21f74a68c.html) and [Secure Node.js Applications](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/3a8e4372f8e74d05b4ed03a484865e08.html) are also relevant.
+- For more information about working with NPM registry, see this [blog](https://blogs.sap.com/2017/05/16/sap-npm-registry-launched-making-the-lives-of-node.js-developers-easier/).
 
 
-## Step 1: Download the needed libraries and push.
-Perform the following commands:
+## Step 1: Configure NPM on your machine to ensure all subsequent NPM calls work.
+Execute the following command:
 ```
-cd myApp
-npm install
-cd ..
-cf push
+npm config set @sap:registry https://npm.sap.com
 ```
 
-Test by accessing the URL: `https://<URL for the app router>/hw/users` as described in the previous chapter.  
+## Step 2: Run the service locally.
+- Clone this repo to your machine.  
+- In the folder you cloned into, execute the `npm install` command.  
+- To start the server, execute the `nodejs server.js` command.  
+- To get all users or the details of one user, browse `http://<ip>:8088/users` or `http://<ip>:8088/users/2`.  
+- To add another entry to the list of users using the POST operation use, for example, the `Postman` extension of Chrome. (PUT and DELETE are not yet implemented). To test these operations, import the file `SAP-CP-CF_Hello_World.postman_collection.json` from this repository into `Postman`.  
 
-## Step 2: Check the JSON Web Token (JWT).
-Check the output of the `logJWT()` function by calling `cf logs sapcpcfhw --recent`.  
-You may see info about your user and the JWT token. For more information about JWT and for a Web app to decode it, see [here](https://jwt.io/).  
-Note that browsing the application `https://<URL for your app>/users` still works, as already pointed out in the previous chapter.  
 
-## Step 3: Protect the application.
-Remove the comment marks in the 3 lines containing `passport`-related code in `myApp/server.js`, and perform the following command:
+## Step 3: Push to Cloud and run the service.
+To log on, access your endpoint with the following command:
 ```
-cf push
+cf api https://api.cf.eu10.hana.ondemand.com
 ```
-Browsing the application `https://<URL for your app>/users` returns a `401 Unauthorized`. That is, the 3 lines ensure that only authenticated calls (using the application router) reach the application.  
-If you browse again `https://<URL for the app router>/hw/users` the call will work, and if you check the logs `cf logs sapcpcfhw --recent` you'll see also information about the SecurityContext Object provided by the [XSSec](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.02/en-US/54513272339246049bf438a03a8095e4.html#loio54513272339246049bf438a03a8095e4__section_atx_2vt_vt) library.
+or: 
+```
+cf api https://api.cf.us10.hana.ondemand.com
+```
+(depending upon the landscape your account was created in)  
+To log on use the following command:
+```
+cf login
+```
+If you have access to more than 1 org or space, execute the following command:
+```
+cf target -o ORG -s SPACE
+```
+To deploy the application to SAP Cloud Platform Cloud Foundry Environment, execute the following command:
+```
+cf push --random-route
+```
+For more information on these commands, see [Getting Started with Cloud Foundry](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/b8ee7894fe0b4df5b78f61dd1ac178ee.html) and [Deploy an Application](http://docs.cloudfoundry.org/devguide/deploy-apps/deploy-app.html).
+
+
+Check the output of this command, and write down the URL created for the application.  
+As a result you should be able to browse `https://<URL for your app>/users`.  
+If you want to use the `Postman` collection above, please adjust the URL for the requests in the Cloud folder to the allocated `<URL for your app>`.
+
+
+
+
 
