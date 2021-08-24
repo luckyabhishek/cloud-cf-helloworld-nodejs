@@ -2,3 +2,4 @@ general:
 steps:
   mtaBuild:
     buildTarget: 'CF'
+    dockerWorkspace: '/home/mta'
