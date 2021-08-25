@@ -3,9 +3,3 @@ general:
 steps:
   mtaBuild:
     buildTarget: 'CF'
-    defaultNpmRegistry: http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.releases.npm/
-    mtaBuildTool: cloudMbt
-    dockerWorkspace: '/home/mta'
-    cloudMbt:
-      dockerImage: 'com.sap.devx/build-snapshot:latest'
-
