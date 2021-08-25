@@ -10,3 +10,4 @@ steps:
       org: 'apm'
       space: 'nova'
       credentialsId: 'CF_CREDENTIALSID'
+      apiEndpoint: 'https://api.cf.sap.hana.ondemand.com'
