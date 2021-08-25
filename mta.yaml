@@ -7,3 +7,5 @@ modules:
   - name: piper.node.hello.world
     type: nodejs
     path: .
+    properties:
+      HOWZZAT: "It's Out"
