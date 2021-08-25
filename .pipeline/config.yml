@@ -3,3 +3,10 @@ general:
 steps:
   mtaBuild:
     buildTarget: 'CF'
+  cloudFoundryDeploy:
+    deployTool: 'mtaDeployPlugin'
+    deployType: 'standard'
+    cloudFoundry:
+      org: 'apm'
+      space: 'nova'
+      credentialsId: 'CF_CREDENTIALSID'
