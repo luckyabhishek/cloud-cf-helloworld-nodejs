@@ -8,7 +8,7 @@ node() {
         mtaBuild script: this
     }
     stage('deploy') {
-        withEnv(['howzatt=notsure']){
+        withEnv(['HOWZZAT=its In']){
             cloudFoundryDeploy script: this
         }
     }
